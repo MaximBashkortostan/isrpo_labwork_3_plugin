@@ -1,0 +1,54 @@
+{
+  "name": "quickrun",
+  "displayName": "QuickRun",
+  "description": "Сборка и запуск C++ одной короткой командой в терминале VS Code",
+  "version": "0.1.0",
+  "publisher": "student",
+  "license": "MIT",
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "quickrun.start", "title": "QuickRun: Собрать и запустить" }
+    ],
+    "keybindings": [
+      { "command": "quickrun.start", "key": "ctrl+alt+r", "mac": "cmd+alt+r", "when": "editorTextFocus" }
+    ],
+    "configuration": {
+      "title": "QuickRun",
+      "properties": {
+        "quickrun.compiler": {
+          "type": "string",
+          "default": "g++",
+          "description": "Компилятор C++ (g++, clang++ или полный путь к нему)."
+        },
+        "quickrun.flags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["-std=c++17", "-Wall"],
+          "description": "Флаги компиляции."
+        },
+        "quickrun.commandName": {
+          "type": "string",
+          "default": "run",
+          "description": "Имя короткой команды для терминала. Не используйте start: в PowerShell и cmd это встроенная команда."
+        },
+        "quickrun.autoSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Автоматически сохранять изменённые C/C++ файлы через полсекунды после правки."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "docs": "jsdoc src -d docs",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.0.0",
+    "jsdoc": "^4.0.0"
+  }
+}
